@@ -1,10 +1,12 @@
 #!/bin/bash
 
+cd /home/deploy/apps/site/scripts
+
 if [ "$(sudo docker ps -q -f name=blue)" ]; then
     echo "Container 'blue' is running."
-    bash ./deploy-green.sh
+    CURRENT=green PREV=blue bash ./_deploy-general.sh
 else
     echo "Container 'blue' is not running."
-    bash ./deploy-blue.sh
+    CURRENT=blue PREV=green bash ./_deploy-general.sh
 fi
 
